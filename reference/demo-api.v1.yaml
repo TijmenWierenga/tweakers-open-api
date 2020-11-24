@@ -1,0 +1,66 @@
+openapi: 3.0.0
+info:
+  title: Demo API
+  version: '1.0'
+  description: A sample API to describe the super powers of OpenAPI
+  contact:
+    name: Tijmen Wierenga
+    email: tijmen.wierenga@tweakers.net
+servers:
+  - url: 'http://localhost'
+    description: local
+paths:
+  /users:
+    get:
+      summary: List users
+      tags:
+        - users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                  required:
+                    - username
+      operationId: get-users
+      description: Returns a list of all registered users
+    post:
+      summary: Register new user
+      operationId: post-users
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+              description: URI to the created resource
+              required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  minLength: 8
+                  format: password
+              required:
+                - username
+                - password
+      description: Registers a new user
+      tags:
+        - users
+tags:
+  - name: users

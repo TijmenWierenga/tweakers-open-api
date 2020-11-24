@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  api:
+    image: php:8-alpine
+    ports:
+    - 80:80
+    volumes:
+    - .:/app
+    - sqlite:/database
+    working_dir: /app
+    command: ash -c "php -f migrate.php && php -S 0.0.0.0:80 -t public"
+
+volumes:
+  sqlite:

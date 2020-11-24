@@ -1,0 +1,24 @@
+{
+    "name": "tijmen/demo-api",
+    "description": "Demo API",
+    "type": "project",
+    "require": {
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "slim/slim": "^4.6",
+        "slim/psr7": "^1.2",
+        "ramsey/uuid": "^4.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tijmen Wierenga",
+            "email": "tijmen.wierenga@persgroep.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
