@@ -11,5 +11,13 @@ services:
     working_dir: /app
     command: ash -c "php -f migrate.php && php -S 0.0.0.0:80 -t public"
 
+  mock:
+    image: stoplight/prism:latest
+    ports:
+    - 3100:3100
+    volumes:
+    - ./reference/demo-api.v1.yaml:/reference/demo-api.v1.yaml
+    command: mock -h 0.0.0.0 -p 3100 /reference/demo-api.v1.yaml
+
 volumes:
   sqlite:

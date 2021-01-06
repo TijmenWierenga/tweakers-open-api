@@ -23,12 +23,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    username:
-                      type: string
-                  required:
-                    - username
+                  $ref: '#/components/schemas/User-read'
       operationId: get-users
       description: Returns a list of all registered users
     post:
@@ -48,19 +43,32 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                password:
-                  type: string
-                  minLength: 8
-                  format: password
-              required:
-                - username
-                - password
+              $ref: '#/components/schemas/User-write'
       description: Registers a new user
       tags:
         - users
 tags:
   - name: users
+components:
+  schemas:
+    User-read:
+      title: User-read
+      type: object
+      properties:
+        username:
+          type: string
+      required:
+        - username
+    User-write:
+      title: User-write
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+          minLength: 8
+      required:
+        - username
+        - password
