@@ -47,6 +47,26 @@ paths:
       description: Registers a new user
       tags:
         - users
+  '/users/{username}':
+    parameters:
+      - schema:
+          type: string
+        name: username
+        in: path
+        required: true
+    get:
+      summary: Get by username
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User-read'
+      operationId: get-users-userId
+      description: Gets a user by it's unique username
+      tags:
+        - users
 tags:
   - name: users
 components:

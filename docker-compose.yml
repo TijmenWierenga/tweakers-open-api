@@ -19,5 +19,14 @@ services:
     - ./reference/demo-api.v1.yaml:/reference/demo-api.v1.yaml
     command: mock -h 0.0.0.0 -p 3100 /reference/demo-api.v1.yaml
 
+  docs:
+    image: redocly/redoc:latest
+    ports:
+    - 8080:80
+    volumes:
+    - ./reference/:/usr/share/nginx/html/spec/
+    environment:
+    - SPEC_URL=spec/demo-api.v1.yaml
+
 volumes:
   sqlite:

@@ -4,23 +4,16 @@ use App\User;
 use App\UserRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Factory\AppFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$pdo = new PDO(sprintf('sqlite:%s', '/database/db.sq3'));
-$userRepository = new UserRepository($pdo);
-
 $app = AppFactory::create();
 
-$app
-    ->add(function (Request $request, RequestHandler $handler): Response {
-        $response = $handler->handle($request);
+require __DIR__ . '/../config/container.php';
+require __DIR__ . '/../config/middleware.php';
 
-        return $response->withAddedHeader('Content-Type', 'application/json');
-    })
-    ->addBodyParsingMiddleware();
+/** @var UserRepository $userRepository */
 
 $app->get('/users', function (Request $request, Response $response) use ($userRepository): Response {
     $users = $userRepository->all();

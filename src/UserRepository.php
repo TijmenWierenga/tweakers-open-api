@@ -18,9 +18,13 @@ final class UserRepository
 
     public function save(User $user): void
     {
+        if ($this->exists($user)) {
+            throw UsernameTaken::forUsername($user->username());
+        }
+
         $statement = $this->pdo->prepare(<<<SQL
-            INSERT INTO users (username, age)
-            VALUES (:username, :age)
+            INSERT INTO users (username, password)
+            VALUES (:username, :password)
         SQL);
 
         $statement->execute($user->toArray());
@@ -50,19 +54,34 @@ final class UserRepository
      */
     public function all(): array
     {
-        $statement = $this->pdo->prepare(
+        $statement = $this->pdo->query(
             <<<SQL
                 SELECT * FROM users
             SQL
         );
 
-        $statement->execute();
-
         $users = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map(
-            fn (array $userData): User => User::fromArray($userData),
+            static fn (array $userData): User => User::fromArray($userData),
             $users
         );
+    }
+
+    private function exists(User $user): bool
+    {
+        $statement = $this->pdo->prepare(
+            <<<SQL
+                SELECT COUNT(*) FROM users WHERE username = :username 
+            SQL
+        );
+
+        $statement->execute([
+            'username' => $user->username()
+        ]);
+
+        $count = (int) $statement->fetch(PDO::FETCH_COLUMN);
+
+        return $count > 0;
     }
 }

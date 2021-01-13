@@ -7,7 +7,10 @@
         "ext-pdo": "*",
         "slim/slim": "^4.6",
         "slim/psr7": "^1.2",
-        "ramsey/uuid": "^4.1"
+        "league/openapi-psr7-validator": "^0.14.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
     },
     "license": "MIT",
     "authors": [

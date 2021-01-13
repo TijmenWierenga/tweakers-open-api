@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App;
 
+use JsonSerializable;
+
 /**
  * @author Tijmen Wierenga <tijmen.wierenga@persgroep.net>
  */
-final class User implements \JsonSerializable
+final class User implements JsonSerializable
 {
     public function __construct(
         private string $username,
-        private int $age
+        private string $password
     )
     {}
 
@@ -24,7 +26,7 @@ final class User implements \JsonSerializable
     {
         return [
             'username' => $this->username,
-            'age' => $this->age
+            'password' => $this->password,
         ];
     }
 
@@ -32,12 +34,14 @@ final class User implements \JsonSerializable
     {
         return new self(
             $user['username'],
-            (int) $user['age']
+            $user['password']
         );
     }
 
     public function jsonSerialize(): array
     {
-        return $this->toArray();
+        return [
+            'username' => $this->username,
+        ];
     }
 }

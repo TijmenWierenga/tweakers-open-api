@@ -11,8 +11,9 @@ $pdo = new PDO(sprintf('sqlite:%s', $databaseFile));
 $pdo->exec(
     <<<SQL
         CREATE TABLE IF NOT EXISTS users (
-            username varchar(255),
-            age integer
+            username VARCHAR(255) NOT NULL,
+            password VARCHAR(255) NOT NULL,
+            PRIMARY KEY (username)
         )
     SQL
 );
