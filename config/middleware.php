@@ -13,6 +13,8 @@ use Slim\App;
 
 /** @var $app App */
 
+// This is where the OpenAPI validation middleware is instantiated.
+// It loads the OpenAPI specification and will validate both request and response
 $validationMiddleware = (new ValidationMiddlewareBuilder)
     ->fromYamlFile(__DIR__ . '/../reference/demo-api.v1.yaml')
     ->getValidationMiddleware();
@@ -23,7 +25,7 @@ $app
 
         return $response->withAddedHeader('Content-Type', 'application/json');
     })
-    ->add($validationMiddleware)
+    ->add($validationMiddleware) // The OpenAPI validation middleware is added to the middleware stack here
     ->addBodyParsingMiddleware();
 
 $app->addRoutingMiddleware();
@@ -32,7 +34,7 @@ $errorHandler = new ErrorHandler(
     $app->getResponseFactory()->createResponse(),
     [
         new HttpExceptionHandler(),
-        new InvalidServerRequestMessageHandler(),
+        new InvalidServerRequestMessageHandler(), // This is a custom error handler that will return meaningful validation error messages
         new UserNotFoundHandler(),
         new UsernameTakenHandler(),
     ]
