@@ -13,6 +13,9 @@
     "require-dev": {
         "roave/security-advisories": "dev-master"
     },
+    "suggest": {
+        "ext-pdo_mysql": "Needed when using a MySQL database"
+    },
     "license": "MIT",
     "authors": [
         {
