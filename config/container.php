@@ -5,5 +5,5 @@ use Slim\App;
 
 /** @var $app App */
 
-$pdo = new PDO(sprintf('sqlite:%s', '/database/db.sq3'));
+$pdo = new PDO($_ENV['DATABASE_DSN']);
 $userRepository = new UserRepository($pdo);

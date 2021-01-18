@@ -2,14 +2,24 @@ version: '3.7'
 
 services:
   api:
-    image: php:8-alpine
+    image: tijmenwierenga/demo-api:latest
+    build: .
     ports:
     - 80:80
     volumes:
     - .:/app
-    - sqlite:/database
     working_dir: /app
-    command: ash -c "php -f migrate.php && php -S 0.0.0.0:80 -t public"
+    command: "php -S 0.0.0.0:80 -t public"
+
+  database:
+    image: mysql:8
+    ports:
+    - 3306:3306
+    environment:
+    - MYSQL_ROOT_PASSWORD=secret-password
+    - MYSQL_DATABASE=demo
+    volumes:
+    - ./database/:/docker-entrypoint-initdb.d/
 
   mock:
     image: stoplight/prism:latest
@@ -27,6 +37,3 @@ services:
     - ./reference/:/usr/share/nginx/html/spec/
     environment:
     - SPEC_URL=spec/demo-api.v1.yaml
-
-volumes:
-  sqlite:

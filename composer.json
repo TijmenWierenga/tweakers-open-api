@@ -7,7 +7,8 @@
         "ext-pdo": "*",
         "slim/slim": "^4.6",
         "slim/psr7": "^1.2",
-        "league/openapi-psr7-validator": "^0.14.0"
+        "league/openapi-psr7-validator": "^0.14.0",
+        "symfony/dotenv": "^5.2"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master"

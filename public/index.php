@@ -10,6 +10,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = AppFactory::create();
 
+require __DIR__ . '/../config/environment.php';
 require __DIR__ . '/../config/container.php';
 require __DIR__ . '/../config/middleware.php';
 
