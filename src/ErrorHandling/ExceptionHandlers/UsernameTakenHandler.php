@@ -29,7 +29,7 @@ final class UsernameTakenHandler implements ExceptionHandler
     {
         $response->getBody()->write(json_encode($this->formatter->format($exception), JSON_THROW_ON_ERROR));
 
-        return $response->withStatus(400);
+        return $response->withStatus(422);
     }
 
     public function canHandle(Throwable $exception): bool

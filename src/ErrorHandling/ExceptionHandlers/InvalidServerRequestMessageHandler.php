@@ -25,7 +25,7 @@ final class InvalidServerRequestMessageHandler implements ExceptionHandler
             'details' => $this->renderDetails($validationException),
         ], JSON_THROW_ON_ERROR));
 
-        return $response->withStatus(400);
+        return $response->withStatus(422);
     }
 
     public function canHandle(Throwable $exception): bool

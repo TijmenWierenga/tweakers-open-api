@@ -9,6 +9,8 @@ info:
 servers:
   - url: 'http://localhost'
     description: local
+  - url: 'http://localhost:3100'
+    description: mock server
 paths:
   /users:
     get:
@@ -37,6 +39,7 @@ paths:
               schema:
                 type: string
                 format: uri
+                example: 'http://localhost/users/my-username'
               description: URI to the created resource
               required: true
       requestBody:
@@ -77,6 +80,7 @@ components:
       properties:
         username:
           type: string
+          x-faker: internet.userName
       required:
         - username
     User-write:
