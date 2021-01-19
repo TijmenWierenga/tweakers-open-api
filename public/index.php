@@ -45,4 +45,13 @@ $app->post('/users', function (Request $request, Response $response) use ($userR
         ->withAddedHeader('Location', sprintf('/users/%s', $user->username()));
 });
 
+$app->get('/author', function (Request $request, Response $response): Response {
+    $response->getBody()->write(json_encode([
+        'name' => 'Tijmen',
+        'email' => 'tijmen.wierenga@persgroep.net',
+    ], JSON_THROW_ON_ERROR));
+
+    return $response->withStatus(200);
+});
+
 $app->run();
