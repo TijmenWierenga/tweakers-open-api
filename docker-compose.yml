@@ -9,7 +9,9 @@ services:
     volumes:
     - .:/app
     working_dir: /app
-    command: "php -S 0.0.0.0:80 -t public"
+    command: >
+      /bin/ash -c "composer install &&
+                   php -S 0.0.0.0:80 -t public"
 
   database:
     image: mysql:8
