@@ -28,7 +28,7 @@ services:
     ports:
     - 3100:3100
     volumes:
-    - ./reference/demo-api.v1.yaml:/reference/demo-api.v1.yaml
+    - ./reference:/reference
     command: mock -h 0.0.0.0 -p 3100 /reference/demo-api.v1.yaml
 
   docs:
